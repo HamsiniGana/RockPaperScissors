@@ -1,16 +1,20 @@
-import { Link } from "@heroui/link";
-import { Snippet } from "@heroui/snippet";
-import { Code } from "@heroui/code";
-import { button as buttonStyles } from "@heroui/theme";
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
+"use client";
+
 import GradientText from '@/components/gradientText'
 import RockScissorsHand from "@/components/rockScissorsHand"
-
+import Timer from "@/components/timer"
+import {Button} from "@heroui/react";
+import { useState } from 'react';
 export default function Home() {
+  const [startGame, setStartGame] = useState(false)
+
   return (
     <div className="flex flex-col items-center">
-      <GradientText className="text-[50px] mb-[60px]">READY SET GO</GradientText>
+      <div className='flex flex-row'>
+        <GradientText className="text-[50px] mb-[60px]">READY SET GO</GradientText>
+        <Button className='ms-[400px] mt-4' onClick={() => {setStartGame(true)}}>START GAME</Button>
+      </div>
+      <Timer startGame={startGame} setStartGame={setStartGame}/>
       <div className="flex flex-row items-center justify-center">
         <div className="flex flex-col items-center px-[150px]">
           <p>Points:</p>

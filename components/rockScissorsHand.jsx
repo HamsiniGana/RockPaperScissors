@@ -6,6 +6,8 @@ import paper from "../assets/paper.png"
 import Image from "next/image";
 import {Button} from "@heroui/react";
 import { useState } from "react";
+
+
 export default function RockScissorsHand (props) {
   const [ring, setRing] = useState({
     rockStyle: "gradient-border my-5 h-[80px] w-[80px]",
