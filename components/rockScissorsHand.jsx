@@ -15,6 +15,7 @@ export default function RockScissorsHand (props) {
     paperStyle: "gradient-border my-5 h-[80px] w-[80px]"
   })
   const [selectedIcon, setSelectedIcon] = useState('')
+  const [disableButtons, setDisableButtons] = useState(true)
 
   useEffect(() => {
     if (selectedIcon === "rock") {
@@ -37,17 +38,23 @@ export default function RockScissorsHand (props) {
     }
   }, [selectedIcon])
 
+  useEffect(() => {
+    if (props.startGame) {
+      setDisableButtons(false)
+    }
+  }, [props.startGame])
+
     return (
       <>
        {props.player === "you" ?
         <div className="flex flex-col">
-          <Button className={ring.rockStyle} onClick={() => {setSelectedIcon("rock")}}>
+          <Button isDisabled={disableButtons} className={ring.rockStyle} onClick={() => {setSelectedIcon("rock")}}>
             <Image src={rock} alt="rock-icon" className="m-2"/>
           </Button>
-          <Button className={ring.scissorsStyle} onClick={() => {setSelectedIcon("scissors")}}>
+          <Button isDisabled={disableButtons} className={ring.scissorsStyle} onClick={() => {setSelectedIcon("scissors")}}>
             <Image src={scissors} alt="scissors-icon" className="m-2"/>
           </Button>
-          <Button className={ring.paperStyle} onClick={() => {setSelectedIcon("paper")}}>
+          <Button isDisabled={disableButtons} className={ring.paperStyle} onClick={() => {setSelectedIcon("paper")}}>
             <Image src={paper} alt="paper-icon" className="m-3"/>
           </Button>
 

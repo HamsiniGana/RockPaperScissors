@@ -19,7 +19,7 @@ export default function Home() {
         <div className="flex flex-col items-center px-[150px]">
           <p>Points:</p>
           <GradientText className="text-[35px]">You</GradientText>
-          <RockScissorsHand player="you"/>
+          <RockScissorsHand player="you" startGame={startGame} />
         </div>
         <span className="ml-[30px]">Player won this round</span>
         <div className="flex flex-col items-center px-[150px]">
