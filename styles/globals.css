@@ -10,3 +10,12 @@
   background-origin: border-box;
   background-clip: padding-box, border-box;
 }
+
+.gradient-border-on-click {
+  border: double 4px transparent;
+  border-radius: 50%;
+  background-image: linear-gradient(black, black),
+                    linear-gradient(rgb(56, 211, 56), rgb(56, 211, 56));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}

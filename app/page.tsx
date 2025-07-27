@@ -5,8 +5,6 @@ import { button as buttonStyles } from "@heroui/theme";
 import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
 import GradientText from '@/components/gradientText'
-
-
 import RockScissorsHand from "@/components/rockScissorsHand"
 
 export default function Home() {
@@ -17,13 +15,13 @@ export default function Home() {
         <div className="flex flex-col items-center px-[150px]">
           <p>Points:</p>
           <GradientText className="text-[35px]">You</GradientText>
-          <RockScissorsHand />
+          <RockScissorsHand player="you"/>
         </div>
-        <span>Player won this round</span>
+        <span className="ml-[30px]">Player won this round</span>
         <div className="flex flex-col items-center px-[150px]">
           <p>Points:</p>
           <GradientText className="text-[35px]">Computer</GradientText>
-          <RockScissorsHand />
+          <RockScissorsHand player="computer"/>
         </div>
       </div>
     </div>
