@@ -7,7 +7,7 @@ import {Button} from "@heroui/react";
 import { useState } from 'react';
 export default function Home() {
   const [startGame, setStartGame] = useState(false)
-
+  const [selectedIcon, setSelectedIcon] = useState('')
   return (
     <div className="flex flex-col items-center">
       <div className='flex flex-row'>
@@ -19,7 +19,7 @@ export default function Home() {
         <div className="flex flex-col items-center px-[150px]">
           <p>Points:</p>
           <GradientText className="text-[35px]">You</GradientText>
-          <RockScissorsHand player="you" startGame={startGame} />
+          <RockScissorsHand player="you" startGame={startGame} selectedIcon={selectedIcon} setSelectedIcon={setSelectedIcon}/>
         </div>
         <span className="ml-[30px]">Player won this round</span>
         <div className="flex flex-col items-center px-[150px]">

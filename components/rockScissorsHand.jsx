@@ -14,29 +14,31 @@ export default function RockScissorsHand (props) {
     scissorsStyle: "gradient-border my-5 h-[80px] w-[80px]",
     paperStyle: "gradient-border my-5 h-[80px] w-[80px]"
   })
-  const [selectedIcon, setSelectedIcon] = useState('')
+
   const [disableButtons, setDisableButtons] = useState(true)
 
   useEffect(() => {
-    if (selectedIcon === "rock") {
+    if (props.selectedIcon === "rock") {
       setRing({
         scissorsStyle: "gradient-border my-5 h-[80px] w-[80px]",
         paperStyle: "gradient-border my-5 h-[80px] w-[80px]",
         rockStyle: "gradient-border-on-click my-5 h-[80px] w-[80px]"
       });
-      setSelectedIcon("rock")
-    } else if (selectedIcon === "scissors") {
+      // props.setSelectedIcon("rock")
+    } else if (props.selectedIcon === "scissors") {
       setRing({
         paperStyle: "gradient-border my-5 h-[80px] w-[80px]",
         scissorsStyle: "gradient-border-on-click my-5 h-[80px] w-[80px]",
-        rockStyle: "gradient-border my-5 h-[80px] w-[80px]"}); setSelectedIcon("scissors")
-    } else if (selectedIcon === "paper") {
+        rockStyle: "gradient-border my-5 h-[80px] w-[80px]"}); 
+        // props.setSelectedIcon("scissors")
+    } else if (props.selectedIcon === "paper") {
       setRing({
         rockStyle: "gradient-border my-5 h-[80px] w-[80px]",
         paperStyle: "gradient-border-on-click my-5 h-[80px] w-[80px]",
-        scissorsStyle: "gradient-border my-5 h-[80px] w-[80px]"}); setSelectedIcon("paper")
+        scissorsStyle: "gradient-border my-5 h-[80px] w-[80px]"}); 
+        // props.setSelectedIcon("paper")
     }
-  }, [selectedIcon])
+  }, [props.selectedIcon])
 
   useEffect(() => {
     if (props.startGame) {
@@ -48,13 +50,13 @@ export default function RockScissorsHand (props) {
       <>
        {props.player === "you" ?
         <div className="flex flex-col">
-          <Button isDisabled={disableButtons} className={ring.rockStyle} onClick={() => {setSelectedIcon("rock")}}>
+          <Button isDisabled={disableButtons} className={ring.rockStyle} onClick={() => {props.setSelectedIcon("rock")}}>
             <Image src={rock} alt="rock-icon" className="m-2"/>
           </Button>
-          <Button isDisabled={disableButtons} className={ring.scissorsStyle} onClick={() => {setSelectedIcon("scissors")}}>
+          <Button isDisabled={disableButtons} className={ring.scissorsStyle} onClick={() => {props.setSelectedIcon("scissors")}}>
             <Image src={scissors} alt="scissors-icon" className="m-2"/>
           </Button>
-          <Button isDisabled={disableButtons} className={ring.paperStyle} onClick={() => {setSelectedIcon("paper")}}>
+          <Button isDisabled={disableButtons} className={ring.paperStyle} onClick={() => {props.setSelectedIcon("paper")}}>
             <Image src={paper} alt="paper-icon" className="m-3"/>
           </Button>
 
