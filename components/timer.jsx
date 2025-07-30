@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 export default function Timer (props) {
     const [timeLeft, setTimeLeft] = useState(5)
-    console.log(props)
+    // console.log(props)
     useEffect(() => {
         if (timeLeft != 0 && props.startNewSession) {
             // console.log("here")

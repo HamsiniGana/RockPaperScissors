@@ -69,10 +69,12 @@ export default function RockScissorsHand (props) {
   }, [props.compSelectedIconIndex])
 
   useEffect(() => {
-    if (props.startGame) {
+    if (props.startNewSession) {
       setDisableButtons(false)
+    } else {
+      setDisableButtons(true)
     }
-  }, [props.startGame])
+  }, [props.startNewSession])
 
     return (
       <>
