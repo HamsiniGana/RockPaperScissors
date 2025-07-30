@@ -18,27 +18,55 @@ export default function RockScissorsHand (props) {
   const [disableButtons, setDisableButtons] = useState(true)
 
   useEffect(() => {
-    if (props.selectedIcon === "rock") {
+    console.log("comp selected:", props.compSelectedIconIndex)
+    if (props.compSelectedIconIndex != '')
+    if (props.playerSelectedIcon === "rock") {
       setRing({
         scissorsStyle: "gradient-border my-5 h-[80px] w-[80px]",
         paperStyle: "gradient-border my-5 h-[80px] w-[80px]",
         rockStyle: "gradient-border-on-click my-5 h-[80px] w-[80px]"
       });
-      // props.setSelectedIcon("rock")
-    } else if (props.selectedIcon === "scissors") {
+      // props.setPlayerSelectedIcon("rock")
+    } else if (props.playerSelectedIcon === "scissors") {
       setRing({
         paperStyle: "gradient-border my-5 h-[80px] w-[80px]",
         scissorsStyle: "gradient-border-on-click my-5 h-[80px] w-[80px]",
         rockStyle: "gradient-border my-5 h-[80px] w-[80px]"}); 
-        // props.setSelectedIcon("scissors")
-    } else if (props.selectedIcon === "paper") {
+        // props.setPlayerSelectedIcon("scissors")
+    } else if (props.playerSelectedIcon === "paper") {
       setRing({
         rockStyle: "gradient-border my-5 h-[80px] w-[80px]",
         paperStyle: "gradient-border-on-click my-5 h-[80px] w-[80px]",
         scissorsStyle: "gradient-border my-5 h-[80px] w-[80px]"}); 
-        // props.setSelectedIcon("paper")
+        // props.setPlayerSelectedIcon("paper")
     }
-  }, [props.selectedIcon])
+  }, [props.playerSelectedIcon])
+
+
+
+
+  useEffect(() => {
+    if (props.compSelectedIconIndex === 0) {
+      setRing({
+        scissorsStyle: "gradient-border my-5 h-[80px] w-[80px]",
+        paperStyle: "gradient-border my-5 h-[80px] w-[80px]",
+        rockStyle: "gradient-border-on-click my-5 h-[80px] w-[80px]"
+      });
+      // props.setPlayerSelectedIcon("rock")
+    } else if (props.compSelectedIconIndex === 1) {
+      setRing({
+        paperStyle: "gradient-border my-5 h-[80px] w-[80px]",
+        scissorsStyle: "gradient-border-on-click my-5 h-[80px] w-[80px]",
+        rockStyle: "gradient-border my-5 h-[80px] w-[80px]"}); 
+        // props.setPlayerSelectedIcon("scissors")
+    } else if (props.compSelectedIconIndex === 2) {
+      setRing({
+        rockStyle: "gradient-border my-5 h-[80px] w-[80px]",
+        paperStyle: "gradient-border-on-click my-5 h-[80px] w-[80px]",
+        scissorsStyle: "gradient-border my-5 h-[80px] w-[80px]"}); 
+        // props.setPlayerSelectedIcon("paper")
+    }
+  }, [props.compSelectedIconIndex])
 
   useEffect(() => {
     if (props.startGame) {
@@ -50,13 +78,13 @@ export default function RockScissorsHand (props) {
       <>
        {props.player === "you" ?
         <div className="flex flex-col">
-          <Button isDisabled={disableButtons} className={ring.rockStyle} onClick={() => {props.setSelectedIcon("rock")}}>
+          <Button isDisabled={disableButtons} className={ring.rockStyle} onClick={() => {props.setPlayerSelectedIcon("rock")}}>
             <Image src={rock} alt="rock-icon" className="m-2"/>
           </Button>
-          <Button isDisabled={disableButtons} className={ring.scissorsStyle} onClick={() => {props.setSelectedIcon("scissors")}}>
+          <Button isDisabled={disableButtons} className={ring.scissorsStyle} onClick={() => {props.setPlayerSelectedIcon("scissors")}}>
             <Image src={scissors} alt="scissors-icon" className="m-2"/>
           </Button>
-          <Button isDisabled={disableButtons} className={ring.paperStyle} onClick={() => {props.setSelectedIcon("paper")}}>
+          <Button isDisabled={disableButtons} className={ring.paperStyle} onClick={() => {props.setPlayerSelectedIcon("paper")}}>
             <Image src={paper} alt="paper-icon" className="m-3"/>
           </Button>
 
