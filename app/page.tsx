@@ -28,6 +28,12 @@ export default function Home() {
       setStartNewSession={setStartNewSession}
       compSelectedIconIndex = {compSelectedIconIndex}
       setCompSelectedIconIndex = {setCompSelectedIconIndex}
+      winningCombinations = {winningCombinations}
+      playerSelectedIcon = {playerSelectedIcon}
+      playerPoints = {playerPoints}
+      setPlayerPoints = {setPlayerPoints}
+      compPoints = {setCompPoints}
+      setCompPoints = {setCompPoints}
       />
       <div className="flex flex-row items-center justify-center">
         <div className="flex flex-col items-center px-[150px]">
@@ -39,7 +45,7 @@ export default function Home() {
             playerSelectedIcon={playerSelectedIcon} 
             setPlayerSelectedIcon={setPlayerSelectedIcon}/>
         </div>
-        <span className="ml-[30px]">Player won this round</span>
+        {/* <span className="ml-[30px]">Player won this round</span> */}
         <div className="flex flex-col items-center px-[150px]">
           <p>Points: {compPoints}</p>
           <GradientText className="text-[35px]">Computer</GradientText>
