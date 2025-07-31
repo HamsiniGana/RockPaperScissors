@@ -34,7 +34,9 @@ export default function Timer (props) {
         // console.log(props.winningCombinations[playerSelection])
         // console.log(props.winningCombinations[compSelection])
         // console.log(compSelection in Object.keys(props.winningCombinations))
-
+        if (playerSelection === '') {
+            return "You did not pick an option!"
+        }
         const foundPlayerSelection = Object.keys(props.winningCombinations).find(k => k === playerSelection)
         const foundCompSelection = Object.keys(props.winningCombinations).find(k => k === compSelection)
         if (foundPlayerSelection && props.winningCombinations[playerSelection] === compSelection) {
@@ -61,8 +63,14 @@ export default function Timer (props) {
             console.log("RESULT:", scoreCalculation(props.playerSelectedIcon,  computerSelectionConversion(compIndex)) )
             if (sessionResult === "player won") {
                 props.setPlayerPoints(prev => prev + 1)
+                props.setDisplayMsg('You won this round!')
             } else if (sessionResult === "computer won") {
                 props.setCompPoints(prev => prev + 1)
+                props.setDisplayMsg('Computer won this round!')
+            } else if (sessionResult === "draw") {
+                props.setDisplayMsg("It's a draw!")
+            } else if (sessionResult === "You did not pick an option!") {
+                props.setDisplayMsg(sessionResult)
             }
         }
     }, [timeLeft, props.startNewSession])

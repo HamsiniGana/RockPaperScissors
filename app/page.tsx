@@ -18,6 +18,7 @@ export default function Home() {
     paper: "rock",
     rock: "scissors"
   })
+  const [displayMsg, setDisplayMsg] = useState('')
   return (
     <div className="flex flex-col items-center">
       <div className='flex flex-row'>
@@ -30,10 +31,9 @@ export default function Home() {
       setCompSelectedIconIndex = {setCompSelectedIconIndex}
       winningCombinations = {winningCombinations}
       playerSelectedIcon = {playerSelectedIcon}
-      playerPoints = {playerPoints}
       setPlayerPoints = {setPlayerPoints}
-      compPoints = {compPoints}
       setCompPoints = {setCompPoints}
+      setDisplayMsg={setDisplayMsg}
       />
       <div className="flex flex-row items-center justify-center">
         <div className="flex flex-col items-center px-[150px]">
@@ -45,7 +45,7 @@ export default function Home() {
             playerSelectedIcon={playerSelectedIcon} 
             setPlayerSelectedIcon={setPlayerSelectedIcon}/>
         </div>
-        {/* <span className="ml-[30px]">Player won this round</span> */}
+        <span className="ml-[30px] text-[18px] w-[250px] ml-[90px]">{displayMsg}</span>
         <div className="flex flex-col items-center px-[150px]">
           <p>Points: {compPoints}</p>
           <GradientText className="text-[35px]">Computer</GradientText>
