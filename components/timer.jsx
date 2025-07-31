@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 
 export default function Timer (props) {
+    // console.log("Render at", new Date().toISOString());
+
     const [timeLeft, setTimeLeft] = useState(5)
 
     /**
@@ -44,11 +46,12 @@ export default function Timer (props) {
     }
 
     useEffect(() => {
-        if (timeLeft != 0 && props.startNewSession) {
+        if (timeLeft > 0 && props.startNewSession) {
             // console.log("here")
-            setTimeout(() => {setTimeLeft(timeLeft - 1)}, 1000)
+            const intervalId = setInterval(() => {setTimeLeft(prev => prev - 1)}, 1000)
+            return () => clearInterval(intervalId)
         }
-        if (timeLeft == 0) {
+        if (timeLeft == 0 && props.startNewSession) {
             props.setStartNewSession(false)
 
             const compIndex = Math.floor(Math.random() * 3)
@@ -57,9 +60,9 @@ export default function Timer (props) {
             const sessionResult = scoreCalculation(props.playerSelectedIcon,  computerSelectionConversion(compIndex))
             console.log("RESULT:", scoreCalculation(props.playerSelectedIcon,  computerSelectionConversion(compIndex)) )
             if (sessionResult === "player won") {
-                props.setPlayerPoints(props.playerPoints + 1)
+                props.setPlayerPoints(prev => prev + 1)
             } else if (sessionResult === "computer won") {
-                props.setCompPoints(props.compPoints + 1)
+                props.setCompPoints(prev => prev + 1)
             }
         }
     }, [timeLeft, props.startNewSession])

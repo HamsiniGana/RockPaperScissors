@@ -43,8 +43,6 @@ export default function RockScissorsHand (props) {
   }, [props.playerSelectedIcon])
 
 
-
-
   useEffect(() => {
     if (props.compSelectedIconIndex === 0) {
       setRing({

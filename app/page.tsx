@@ -32,7 +32,7 @@ export default function Home() {
       playerSelectedIcon = {playerSelectedIcon}
       playerPoints = {playerPoints}
       setPlayerPoints = {setPlayerPoints}
-      compPoints = {setCompPoints}
+      compPoints = {compPoints}
       setCompPoints = {setCompPoints}
       />
       <div className="flex flex-row items-center justify-center">
