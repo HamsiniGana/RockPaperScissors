@@ -75,14 +75,14 @@ export default function RockScissorsHand (props) {
   // }, [props.roundNo])
 
   useEffect(() => {
-    if (props.changeCompSelectionBorder) {
+    if (props.changeSelectionBorder) {
       setRing({
       rockStyle: "gradient-border my-5 h-[80px] w-[80px]",
       scissorsStyle: "gradient-border my-5 h-[80px] w-[80px]",
       paperStyle: "gradient-border my-5 h-[80px] w-[80px]"
       });
     }
-  }, [props.changeCompSelectionBorder])
+  }, [props.changeSelectionBorder])
 
   useEffect(() => {
     if (props.startNewSession) {

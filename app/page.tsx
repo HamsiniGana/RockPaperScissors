@@ -23,7 +23,7 @@ export default function Home() {
   const [bestOf, setBestOf] = useState(3)
   // const [timeLeftForNextSession, setTimeLeftForNextSession] = useState(3)
   
-  const[changeCompSelectionBorder, setChangeCompSelectionBorder] = useState(false)
+  const[changeSelectionBorder, setChangeSelectionBorder] = useState(false)
 
   return (
     <div className="flex flex-col items-center">
@@ -44,8 +44,8 @@ export default function Home() {
       setDisplayMsg={setDisplayMsg}
       bestOf={bestOf}
       setBestOf={setBestOf}
-      changeCompSelectionBorder = {changeCompSelectionBorder}
-      setChangeCompSelectionBorder = {setChangeCompSelectionBorder}
+      changeSelectionBorder = {changeSelectionBorder}
+      setChangeSelectionBorder = {setChangeSelectionBorder}
       />
       <div className="flex flex-row items-center justify-center">
         <div className="flex flex-col items-center px-[150px]">
@@ -56,7 +56,7 @@ export default function Home() {
             startNewSession={startNewSession} 
             playerSelectedIcon={playerSelectedIcon} 
             setPlayerSelectedIcon={setPlayerSelectedIcon}
-            changeCompSelectionBorder = {changeCompSelectionBorder}
+            changeSelectionBorder = {changeSelectionBorder}
             />
         </div>
         <span className="ml-[30px] text-[18px] w-[250px] ml-[90px]">{displayMsg}</span>
@@ -66,7 +66,7 @@ export default function Home() {
           <RockScissorsHand 
             player="computer"
             compSelectedIconIndex={compSelectedIconIndex}
-            changeCompSelectionBorder = {changeCompSelectionBorder}
+            changeSelectionBorder = {changeSelectionBorder}
             />
         </div>
       </div>

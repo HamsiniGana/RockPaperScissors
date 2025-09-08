@@ -100,7 +100,7 @@ export default function Timer (props) {
         // console.log("TLNS:", timeLeftForNextSession)
         if (roundNo <= props.bestOf && timeLeftForNextSession > 0 && timeLeft === 0) {
             // setTimeLeftForNextSession(3)
-            props.setChangeCompSelectionBorder(false)
+            props.setChangeSelectionBorder(false)
             const intervalId = setInterval(() => {setTimeLeftForNextSession(prev => prev - 1)}, 1000)
             return () => clearInterval(intervalId)
             
@@ -114,7 +114,7 @@ export default function Timer (props) {
             // }
             
             props.setStartNewSession(true)
-            props.setChangeCompSelectionBorder(true)
+            props.setChangeSelectionBorder(true)
         }
         // if (timeLeft == 0 && props.startNewSession && timeLeftForNextSession === 0) {
         //     props.setRoundNo(prev => prev + 1)
