@@ -18,7 +18,7 @@ export default function RockScissorsHand (props) {
   const [disableButtons, setDisableButtons] = useState(true)
 
   useEffect(() => {
-    console.log("comp selected:", props.compSelectedIconIndex)
+    // console.log("comp selected:", props.compSelectedIconIndex)
     if (props.compSelectedIconIndex != '')
     if (props.playerSelectedIcon === "rock") {
       setRing({
@@ -65,6 +65,24 @@ export default function RockScissorsHand (props) {
         // props.setPlayerSelectedIcon("paper")
     }
   }, [props.compSelectedIconIndex])
+
+  // useEffect(() => {
+  //    setRing({
+  //     rockStyle: "gradient-border my-5 h-[80px] w-[80px]",
+  //     scissorsStyle: "gradient-border my-5 h-[80px] w-[80px]",
+  //     paperStyle: "gradient-border my-5 h-[80px] w-[80px]"
+  //     });
+  // }, [props.roundNo])
+
+  useEffect(() => {
+    if (props.changeCompSelectionBorder) {
+      setRing({
+      rockStyle: "gradient-border my-5 h-[80px] w-[80px]",
+      scissorsStyle: "gradient-border my-5 h-[80px] w-[80px]",
+      paperStyle: "gradient-border my-5 h-[80px] w-[80px]"
+      });
+    }
+  }, [props.changeCompSelectionBorder])
 
   useEffect(() => {
     if (props.startNewSession) {

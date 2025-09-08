@@ -19,6 +19,12 @@ export default function Home() {
     rock: "scissors"
   })
   const [displayMsg, setDisplayMsg] = useState('')
+ 
+  const [bestOf, setBestOf] = useState(3)
+  // const [timeLeftForNextSession, setTimeLeftForNextSession] = useState(3)
+  const [roundNo, setRoundNo] = useState(1)
+  const[changeCompSelectionBorder, setChangeCompSelectionBorder] = useState(false)
+
   return (
     <div className="flex flex-col items-center">
       <div className='flex flex-row'>
@@ -34,6 +40,14 @@ export default function Home() {
       setPlayerPoints = {setPlayerPoints}
       setCompPoints = {setCompPoints}
       setDisplayMsg={setDisplayMsg}
+      bestOf={bestOf}
+      setBestOf={setBestOf}
+      // timeLeftForNextSession={timeLeftForNextSession}
+      // setTimeLeftForNextSession={setTimeLeftForNextSession}
+      roundNo={roundNo}
+      setRoundNo={setRoundNo}
+      changeCompSelectionBorder = {changeCompSelectionBorder}
+      setChangeCompSelectionBorder = {setChangeCompSelectionBorder}
       />
       <div className="flex flex-row items-center justify-center">
         <div className="flex flex-col items-center px-[150px]">
@@ -43,7 +57,10 @@ export default function Home() {
             player="you" 
             startNewSession={startNewSession} 
             playerSelectedIcon={playerSelectedIcon} 
-            setPlayerSelectedIcon={setPlayerSelectedIcon}/>
+            setPlayerSelectedIcon={setPlayerSelectedIcon}
+            changeCompSelectionBorder = {changeCompSelectionBorder}
+            // roundNo={roundNo}
+            />
         </div>
         <span className="ml-[30px] text-[18px] w-[250px] ml-[90px]">{displayMsg}</span>
         <div className="flex flex-col items-center px-[150px]">
@@ -52,6 +69,8 @@ export default function Home() {
           <RockScissorsHand 
             player="computer"
             compSelectedIconIndex={compSelectedIconIndex}
+            changeCompSelectionBorder = {changeCompSelectionBorder}
+            // roundNo={roundNo}
             />
         </div>
       </div>
