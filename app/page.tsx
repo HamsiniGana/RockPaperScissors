@@ -22,7 +22,7 @@ export default function Home() {
  
   const [bestOf, setBestOf] = useState(3)
   // const [timeLeftForNextSession, setTimeLeftForNextSession] = useState(3)
-  const [roundNo, setRoundNo] = useState(1)
+  
   const[changeCompSelectionBorder, setChangeCompSelectionBorder] = useState(false)
 
   return (
@@ -39,13 +39,11 @@ export default function Home() {
       playerSelectedIcon = {playerSelectedIcon}
       setPlayerPoints = {setPlayerPoints}
       setCompPoints = {setCompPoints}
+      playerPoints={playerPoints}
+      compPoints={compPoints}
       setDisplayMsg={setDisplayMsg}
       bestOf={bestOf}
       setBestOf={setBestOf}
-      // timeLeftForNextSession={timeLeftForNextSession}
-      // setTimeLeftForNextSession={setTimeLeftForNextSession}
-      roundNo={roundNo}
-      setRoundNo={setRoundNo}
       changeCompSelectionBorder = {changeCompSelectionBorder}
       setChangeCompSelectionBorder = {setChangeCompSelectionBorder}
       />
@@ -59,7 +57,6 @@ export default function Home() {
             playerSelectedIcon={playerSelectedIcon} 
             setPlayerSelectedIcon={setPlayerSelectedIcon}
             changeCompSelectionBorder = {changeCompSelectionBorder}
-            // roundNo={roundNo}
             />
         </div>
         <span className="ml-[30px] text-[18px] w-[250px] ml-[90px]">{displayMsg}</span>
@@ -70,7 +67,6 @@ export default function Home() {
             player="computer"
             compSelectedIconIndex={compSelectedIconIndex}
             changeCompSelectionBorder = {changeCompSelectionBorder}
-            // roundNo={roundNo}
             />
         </div>
       </div>

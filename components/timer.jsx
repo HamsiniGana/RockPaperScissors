@@ -7,7 +7,7 @@ export default function Timer (props) {
 
     const [timeLeft, setTimeLeft] = useState(5)
     const [timeLeftForNextSession, setTimeLeftForNextSession] = useState(3)
-    // const [roundNo, props.setRoundNo] = useState(1)
+    const [roundNo, setRoundNo] = useState(1)
     /**
      * Description - Converts the 'indexSelected' value passed to the corresponding icon name
      * @param {*} indexSelected 
@@ -77,7 +77,7 @@ export default function Timer (props) {
                 }
                 // console.log(timeLeftForNextSession)
 
-                props.setRoundNo(prev => prev + 1)
+                setRoundNo(prev => prev + 1)
             }
             // console.log("before")
             // console.log("startNewSession:", props.startNewSession)
@@ -98,14 +98,14 @@ export default function Timer (props) {
 
     useEffect(() => {
         // console.log("TLNS:", timeLeftForNextSession)
-        if (props.roundNo <= props.bestOf && timeLeftForNextSession > 0 && timeLeft === 0) {
+        if (roundNo <= props.bestOf && timeLeftForNextSession > 0 && timeLeft === 0) {
             // setTimeLeftForNextSession(3)
             props.setChangeCompSelectionBorder(false)
             const intervalId = setInterval(() => {setTimeLeftForNextSession(prev => prev - 1)}, 1000)
             return () => clearInterval(intervalId)
             
         }
-        if (props.roundNo <= props.bestOf && timeLeftForNextSession === 0 && timeLeft === 0) {
+        if (roundNo <= props.bestOf && timeLeftForNextSession === 0 && timeLeft === 0) {
             setTimeLeft(5)
             // if (roundNo === 3) {
             //     setTimeLeftForNextSession(0)
@@ -119,7 +119,7 @@ export default function Timer (props) {
         // if (timeLeft == 0 && props.startNewSession && timeLeftForNextSession === 0) {
         //     props.setRoundNo(prev => prev + 1)
         // }
-    }, [props.roundNo, timeLeftForNextSession, timeLeft])
+    }, [roundNo, timeLeftForNextSession, timeLeft])
 
     return (
         <>
@@ -127,7 +127,7 @@ export default function Timer (props) {
             <p>{timeLeft === 0 ? "Time left for next session: " : "Timer: "}</p>
             <p>{timeLeft === 0 ? timeLeftForNextSession : timeLeft}</p>
          </div>
-        {console.log("round:", props.roundNo)}
+        {console.log("round:", roundNo)}
         </>
     )
 }
