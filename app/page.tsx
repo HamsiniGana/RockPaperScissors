@@ -5,6 +5,7 @@ import RockScissorsHand from "@/components/rockScissorsHand"
 import Timer from "@/components/timer"
 import {Button} from "@heroui/react";
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 export default function Home() {
   const [startNewSession, setStartNewSession] = useState(false)
@@ -19,11 +20,17 @@ export default function Home() {
     rock: "scissors"
   })
   const [displayMsg, setDisplayMsg] = useState('')
- 
   const [bestOf, setBestOf] = useState(3)
   // const [timeLeftForNextSession, setTimeLeftForNextSession] = useState(3)
   
   const[changeSelectionBorder, setChangeSelectionBorder] = useState(false)
+
+useEffect(() => {
+  if (changeSelectionBorder) {
+    setPlayerSelectedIcon('')
+  }
+  
+}, [changeSelectionBorder])
 
   return (
     <div className="flex flex-col items-center">
@@ -31,8 +38,9 @@ export default function Home() {
         <GradientText className="text-[50px] mb-[60px]">READY SET GO</GradientText>
         <Button className='ms-[400px] mt-4' onClick={() => {setStartNewSession(true)}}>START GAME</Button>
       </div>
-      <Timer startNewSession={startNewSession}
-      setStartNewSession={setStartNewSession}
+      <Timer 
+      startNewSession={startNewSession}
+      // setStartNewSession={setStartNewSession}
       compSelectedIconIndex = {compSelectedIconIndex}
       setCompSelectedIconIndex = {setCompSelectedIconIndex}
       winningCombinations = {winningCombinations}

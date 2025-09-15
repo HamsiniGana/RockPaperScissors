@@ -15,11 +15,11 @@ export default function RockScissorsHand (props) {
     paperStyle: "gradient-border my-5 h-[80px] w-[80px]"
   })
 
-  const [disableButtons, setDisableButtons] = useState(true)
+  const [disableButtons, setDisableButtons] = useState(false)
 
   useEffect(() => {
     // console.log("comp selected:", props.compSelectedIconIndex)
-    if (props.compSelectedIconIndex != '')
+    // if (props.compSelectedIconIndex != '')
     if (props.playerSelectedIcon === "rock") {
       setRing({
         scissorsStyle: "gradient-border my-5 h-[80px] w-[80px]",
@@ -44,6 +44,7 @@ export default function RockScissorsHand (props) {
 
 
   useEffect(() => {
+    // console.log("props.compSelectedIconIndex", props.compSelectedIconIndex)
     if (props.compSelectedIconIndex === 0) {
       setRing({
         scissorsStyle: "gradient-border my-5 h-[80px] w-[80px]",
@@ -66,15 +67,15 @@ export default function RockScissorsHand (props) {
     }
   }, [props.compSelectedIconIndex])
 
-  // useEffect(() => {
-  //    setRing({
-  //     rockStyle: "gradient-border my-5 h-[80px] w-[80px]",
-  //     scissorsStyle: "gradient-border my-5 h-[80px] w-[80px]",
-  //     paperStyle: "gradient-border my-5 h-[80px] w-[80px]"
-  //     });
-  // }, [props.roundNo])
-
   useEffect(() => {
+    // if (props.compSelectedIconIndex) {
+    //   console.log("props.changeSelectionBorder for comp",props.changeSelectionBorder)
+    // }
+
+    // if (props.playerSelectedIcon) {
+    //   console.log("props.changeSelectionBorder for player",props.changeSelectionBorder)
+    // }
+    
     if (props.changeSelectionBorder) {
       setRing({
       rockStyle: "gradient-border my-5 h-[80px] w-[80px]",
@@ -84,13 +85,13 @@ export default function RockScissorsHand (props) {
     }
   }, [props.changeSelectionBorder])
 
-  useEffect(() => {
-    if (props.startNewSession) {
-      setDisableButtons(false)
-    } else {
-      setDisableButtons(true)
-    }
-  }, [props.startNewSession])
+  // useEffect(() => {
+  //   if (props.startNewSession) {
+  //     setDisableButtons(false)
+  //   } else {
+  //     setDisableButtons(true)
+  //   }
+  // }, [props.startNewSession])
 
     return (
       <>
