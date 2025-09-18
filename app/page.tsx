@@ -21,39 +21,52 @@ export default function Home() {
   })
   const [displayMsg, setDisplayMsg] = useState('')
   const [bestOf, setBestOf] = useState(3)
-  // const [timeLeftForNextSession, setTimeLeftForNextSession] = useState(3)
-  
+  const [playOneMoreRound, setPlayOneMoreRound] = useState(false)
   const[changeSelectionBorder, setChangeSelectionBorder] = useState(false)
 
 useEffect(() => {
   if (changeSelectionBorder) {
     setPlayerSelectedIcon('')
   }
-  
+
 }, [changeSelectionBorder])
+
+// useEffect(() => {
+//   if (playerPoints === compPoints) {
+//     console.log("Equal")
+//     setPlayOneMoreRound(true)
+//   } else {
+//     console.log("Not Equal")
+//     setPlayOneMoreRound(false)
+//   }
+//   // console.log("playerPoints", playerPoints)
+//   // console.log("compPoints", compPoints)
+//   // console.log("playOneMoreRound", playOneMoreRound)
+// }, [playerPoints, compPoints])
 
   return (
     <div className="flex flex-col items-center">
       <div className='flex flex-row'>
         <GradientText className="text-[50px] mb-[60px]">READY SET GO</GradientText>
-        <Button className='ms-[400px] mt-4' onClick={() => {setStartNewSession(true)}}>START GAME</Button>
+        <Button className='ms-[400px] mt-4' onClick={() => {setStartNewSession(true)}}>START NEW GAME</Button>
       </div>
       <Timer 
-      startNewSession={startNewSession}
-      // setStartNewSession={setStartNewSession}
-      compSelectedIconIndex = {compSelectedIconIndex}
-      setCompSelectedIconIndex = {setCompSelectedIconIndex}
-      winningCombinations = {winningCombinations}
-      playerSelectedIcon = {playerSelectedIcon}
-      setPlayerPoints = {setPlayerPoints}
-      setCompPoints = {setCompPoints}
-      playerPoints={playerPoints}
-      compPoints={compPoints}
-      setDisplayMsg={setDisplayMsg}
-      bestOf={bestOf}
-      setBestOf={setBestOf}
-      changeSelectionBorder = {changeSelectionBorder}
-      setChangeSelectionBorder = {setChangeSelectionBorder}
+        startNewSession={startNewSession}
+        setStartNewSession={setStartNewSession}
+        compSelectedIconIndex = {compSelectedIconIndex}
+        setCompSelectedIconIndex = {setCompSelectedIconIndex}
+        winningCombinations = {winningCombinations}
+        playerSelectedIcon = {playerSelectedIcon}
+        setPlayerPoints = {setPlayerPoints}
+        setCompPoints = {setCompPoints}
+        playerPoints={playerPoints}
+        compPoints={compPoints}
+        setDisplayMsg={setDisplayMsg}
+        bestOf={bestOf}
+        // changeSelectionBorder = {changeSelectionBorder}
+        setChangeSelectionBorder = {setChangeSelectionBorder}
+        // playOneMoreRound={playOneMoreRound}
+        // setPlayOneMoreRound={setPlayOneMoreRound}
       />
       <div className="flex flex-row items-center justify-center">
         <div className="flex flex-col items-center px-[150px]">
@@ -71,7 +84,7 @@ useEffect(() => {
         <div className="flex flex-col items-center px-[150px]">
           <p>Points: {compPoints}</p>
           <GradientText className="text-[35px]">Computer</GradientText>
-          <RockScissorsHand 
+          <RockScissorsHand
             player="computer"
             compSelectedIconIndex={compSelectedIconIndex}
             changeSelectionBorder = {changeSelectionBorder}

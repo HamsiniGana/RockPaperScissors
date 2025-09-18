@@ -9,6 +9,10 @@ export default function Timer (props) {
     const [timeLeftForNextSession, setTimeLeftForNextSession] = useState(3)
     const [roundNo, setRoundNo] = useState(1)
     const [startNewRound, setStartNewRound] = useState(false)
+
+    // const [playerPointsTemp, setPlayerPointsTemp] = useState(0)
+    // const [compPointsTemp, setCompPointsTemp] = useState(0)
+   
     // const [sessionResult, setSessionResult] = useState('')
     /**
      * Description - Converts the 'indexSelected' value passed to the corresponding icon name
@@ -53,6 +57,26 @@ export default function Timer (props) {
         return "It's a draw!"
     }
 
+    const immediateScoreCalculation = (result) => {
+         if (result === "You won this round!") {
+            return [props.playerPoints + 1, props.compPoints]
+        } else if (result === "The computer won this round!" || result === "You did not pick an option! Computer won this round") {
+            // setSessionResult("The computer won this round!")
+            return [props.playerPoints, props.compPoints + 1]
+        } else if (result === "It's a draw!") {
+            return [props.playerPoints, props.compPoints]
+        }
+        // setSessionResult("It's a draw!")
+        // return "It's a draw!"
+    }
+
+    const updateScores = (sessionResultPassed) => {
+        if (sessionResultPassed === "You won this round!") {
+            props.setPlayerPoints(prev => prev + 1)
+        } else if (sessionResultPassed === "The computer won this round!" || sessionResultPassed === "You did not pick an option! Computer won this round") {
+            props.setCompPoints(prev => prev + 1)
+        }
+    }
     useEffect(() => {
             if (!props.startNewSession) {
                 return;
@@ -71,10 +95,30 @@ export default function Timer (props) {
                     })
                 }, 1000)
                 return () => clearInterval(intervalId)
-            } else if (roundNo <= props.bestOf && startNewRound && props.startNewSession) {
+            }
+            const compIndex = 1
+            // const compIndex = Math.floor(Math.random() * 3)
+            props.setCompSelectedIconIndex(compIndex)
+            const sessionResult = scoreCalculation(props.playerSelectedIcon,  computerSelectionConversion(compIndex))
+            let immediateResults = immediateScoreCalculation(sessionResult);
+
+            if (roundNo > 3 && immediateResults[0] !== immediateResults[1]) {
+                updateScores(sessionResult)
+                // props.setDisplayMsg(sessionResult)
+                setTimeLeftForNextSession(0)
+                props.setStartNewSession(false)
+                
+                if (immediateResults[0] > immediateResults[1]) {
+                    props.setDisplayMsg(sessionResult + " \n" + "YOU WON THE GAME!")
+                } else {
+                    props.setDisplayMsg(sessionResult + " \n" + "COMPUTER WON THE GAME :(")
+                }
+            }
+
+            if (roundNo <= props.bestOf && startNewRound && props.startNewSession || immediateResults[0] === immediateResults[1]) {
                 const intervalId = setInterval(() => {
                     setTimeLeftForNextSession(prev => {
-                        if ((prev - 1 <= 0) || (roundNo === 3)) {
+                        if ((prev - 1 <= 0) || (roundNo === 3)) { /// goes straight from 3->0 when transitioning from round 3 -> round 4 FIXXXXXX
                             // setStartNewRound(true)
                             clearInterval(intervalId)
                             return 0
@@ -84,95 +128,51 @@ export default function Timer (props) {
                 }, 1000)
                 // clearInterval(intervalId)
 
-                const compIndex = Math.floor(Math.random() * 3)
-                props.setCompSelectedIconIndex(compIndex)
-
-                const sessionResult = scoreCalculation(props.playerSelectedIcon,  computerSelectionConversion(compIndex))
-
-                if (sessionResult === "You won this round!") {
-                    props.setPlayerPoints(prev => prev + 1)
-                } else if (sessionResult === "The computer won this round!" || sessionResult === "You did not pick an option! Computer won this round") {
-                    props.setCompPoints(prev => prev + 1)
+                updateScores(sessionResult)
+                console.log(immediateScoreCalculation(sessionResult))
+                if (roundNo === 3 && immediateResults[0] !== immediateResults[1]) {
+                    if (immediateResults[0] > immediateResults[1]) {
+                            props.setDisplayMsg(sessionResult + " \n" + "YOU WON THE GAME!")
+                    } else {
+                            props.setDisplayMsg(sessionResult + " \n" +"COMPUTER WON THE GAME :(")
+                    }
+                    
+                } else {
+                    props.setDisplayMsg(sessionResult)
                 }
-                props.setDisplayMsg(sessionResult)
-
-                if (roundNo === 3) {
-                    setTimeLeftForNextSession(0);
-                }
-
                 const timeoutId = setTimeout(() => {
                     setRoundNo(prev => prev + 1);
                     setStartNewRound(false);
-                    if (roundNo <= 2) {
+
+                    if (roundNo <= 2 || (immediateResults[0] === immediateResults[1])) {
                         setTimeLeft(5);
                         setTimeLeftForNextSession(3);
+
                     } else {
                         clearTimeout(timeoutId);
+                        setTimeLeftForNextSession(0);
+                        
                         // setTimeLeftForNextSession(0);
                     }
 
                     props.setCompSelectedIconIndex(-1);
-                    if (roundNo === 3) { // change to if player points != comp points
-                        console.log(roundNo, "3rd round")
-                        props.setChangeSelectionBorder(false);
-                    } else {
+                    if (roundNo >= 3) { // change to if player points != comp points
+                        if (immediateResults[0] === immediateResults[1]) {
+                            props.setChangeSelectionBorder(true);
+
+                        } else {
+                            props.setChangeSelectionBorder(false);
+                        }
+                    }
+                    else {
                         props.setChangeSelectionBorder(true);
                         props.setDisplayMsg('');
                     }
                     // props.setPlayerSelectedIcon('');
-                    // console.log("Hello there")
                 }, 3000)
                 return () => clearTimeout(timeoutId)
             }
-    }, [timeLeft, props.startNewSession, startNewRound])
-
-    // useEffect(() => {
-    //     if (props.setChangeSelectionBorder) {
-    //         setSessionResult('')
-    //     }
-
-    // }, [props.setChangeSelectionBorder])
-
-    // useEffect(() => {
-    //     // console.log("timeLeftForNextSession", timeLeftForNextSession)
-    //     // console.log("timeLeft", timeLeft)
-    //     if (roundNo <= props.bestOf && timeLeftForNextSession > 0 && timeLeft === 0) {
-    //         // setTimeLeftForNextSession(3)
-    //         console.log("Here1")
-    //         props.setChangeSelectionBorder(false)
-    //         // console.log("here1after")
-    //         const intervalId = setInterval(() => {setTimeLeftForNextSession(prev => prev - 1)}, 1000)
-
-    //         return () => clearInterval(intervalId)
-    //     }
-    //     if (roundNo <= props.bestOf && timeLeftForNextSession === 0 && timeLeft === 0) {
-    //         console.log("Here2")
-    //         setTimeLeft(5)
-    //         setTimeLeftForNextSession(3)
-    //         // props.setStartNewSession(true)
-    //         props.setChangeSelectionBorder(true)
-    //     }
-
-    //     // if (roundNo > props.bestOf) {
-    //     //     if (props.playerPoints === props.compPoints) {
-    //     //         // console.log("yessssssss")
-    //     //         //Removed && timeLeft === 0 from if check
-    //     //         if (timeLeftForNextSession > 0) {
-    //     //             props.setChangeSelectionBorder(false)
-    //     //             const intervalId = setInterval(() => {setTimeLeftForNextSession(prev => prev - 1)}, 1000)
-    //     //             return () => clearInterval(intervalId)
-    //     //         }
-    //     //         //Removed && timeLeft === 0 from if check
-    //     //         if ((timeLeftForNextSession === 0)) {
-    //     //             setTimeLeft(5)
-    //     //             setTimeLeftForNextSession(3)
-    //     //             props.setStartNewSession(true)
-    //     //             props.setChangeSelectionBorder(true)
-    //     //         }
-
-    //     //     }
-    //     // }
-    // }, [roundNo, timeLeftForNextSession, timeLeft])
+    }, [timeLeft, props.startNewSession, startNewRound]) 
 
     return (
         <>
