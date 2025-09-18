@@ -47,13 +47,10 @@ export default function Timer (props) {
         const foundPlayerSelection = Object.keys(props.winningCombinations).find(k => k === playerSelection)
         const foundCompSelection = Object.keys(props.winningCombinations).find(k => k === compSelection)
         if (foundPlayerSelection && props.winningCombinations[playerSelection] === compSelection) {
-            // setSessionResult("You won this round!")
             return "You won this round!"
         } else if (foundCompSelection && props.winningCombinations[compSelection] === playerSelection) {
-            // setSessionResult("The computer won this round!")
             return "The computer won this round!"
         }
-        // setSessionResult("It's a draw!")
         return "It's a draw!"
     }
 
@@ -61,7 +58,6 @@ export default function Timer (props) {
          if (result === "You won this round!") {
             return [props.playerPoints + 1, props.compPoints]
         } else if (result === "The computer won this round!" || result === "You did not pick an option! Computer won this round") {
-            // setSessionResult("The computer won this round!")
             return [props.playerPoints, props.compPoints + 1]
         } else if (result === "It's a draw!") {
             return [props.playerPoints, props.compPoints]
@@ -107,7 +103,7 @@ export default function Timer (props) {
                 // props.setDisplayMsg(sessionResult)
                 setTimeLeftForNextSession(0)
                 props.setStartNewSession(false)
-                
+
                 if (immediateResults[0] > immediateResults[1]) {
                     props.setDisplayMsg(sessionResult + " \n" + "YOU WON THE GAME!")
                 } else {
@@ -118,7 +114,7 @@ export default function Timer (props) {
             if (roundNo <= props.bestOf && startNewRound && props.startNewSession || immediateResults[0] === immediateResults[1]) {
                 const intervalId = setInterval(() => {
                     setTimeLeftForNextSession(prev => {
-                        if ((prev - 1 <= 0) || (roundNo === 3)) { /// goes straight from 3->0 when transitioning from round 3 -> round 4 FIXXXXXX
+                        if ((prev - 1 <= 0)) { /// goes straight from 3->0 when transitioning from round 3 -> round 4 FIXXXXXX
                             // setStartNewRound(true)
                             clearInterval(intervalId)
                             return 0
