@@ -31,7 +31,10 @@ useEffect(() => {
 
 useEffect(() => {
   let localStorageVal = JSON.parse(localStorage.getItem("startNewSession"))
-  setStartNewSession(localStorageVal)
+  if (localStorageVal !== null) {
+    setStartNewSession(localStorageVal)
+  }
+
 }, [])
 
   return (
