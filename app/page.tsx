@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 export default function Home() {
   const [startNewSession, setStartNewSession] = useState(false)
   const [playerSelectedIcon, setPlayerSelectedIcon] = useState('')
-  const [timerStarted, setTimerStarted] = useState(false)
   const [playerPoints, setPlayerPoints] = useState(0)
   const [compPoints, setCompPoints] = useState(0)
   const [compSelectedIconIndex, setCompSelectedIconIndex] = useState(-1)
@@ -21,9 +20,8 @@ export default function Home() {
   })
   const [displayMsg, setDisplayMsg] = useState('')
   const [bestOf, setBestOf] = useState(3)
-  const [playOneMoreRound, setPlayOneMoreRound] = useState(false)
   const[changeSelectionBorder, setChangeSelectionBorder] = useState(false)
-
+  const [startNewGameClicked, setStartNewGameClicked] = useState(false)
 useEffect(() => {
   if (changeSelectionBorder) {
     setPlayerSelectedIcon('')
@@ -31,26 +29,21 @@ useEffect(() => {
 
 }, [changeSelectionBorder])
 
-// useEffect(() => {
-//   if (playerPoints === compPoints) {
-//     console.log("Equal")
-//     setPlayOneMoreRound(true)
-//   } else {
-//     console.log("Not Equal")
-//     setPlayOneMoreRound(false)
-//   }
-//   // console.log("playerPoints", playerPoints)
-//   // console.log("compPoints", compPoints)
-//   // console.log("playOneMoreRound", playOneMoreRound)
-// }, [playerPoints, compPoints])
+useEffect(() => {
+  let localStorageVal = JSON.parse(localStorage.getItem("startNewSession"))
+  setStartNewSession(localStorageVal)
+}, [])
 
   return (
     <div className="flex flex-col items-center">
       <div className='flex flex-row'>
         <GradientText className="text-[50px] mb-[60px]">READY SET GO</GradientText>
-        <Button className='ms-[400px] mt-4' onClick={() => {setStartNewSession(true)}}>START NEW GAME</Button>
+        <Button className='ms-[400px] mt-4' onClick={() => {
+          localStorage.setItem("startNewSession", "true");
+          window.location.reload();
+          }}>START NEW GAME</Button>
       </div>
-      <Timer 
+      <Timer
         startNewSession={startNewSession}
         setStartNewSession={setStartNewSession}
         compSelectedIconIndex = {compSelectedIconIndex}
@@ -63,6 +56,8 @@ useEffect(() => {
         compPoints={compPoints}
         setDisplayMsg={setDisplayMsg}
         bestOf={bestOf}
+        setStartNewGameClicked={setStartNewGameClicked}
+        startNewGameClicked={setStartNewGameClicked}
         // changeSelectionBorder = {changeSelectionBorder}
         setChangeSelectionBorder = {setChangeSelectionBorder}
         // playOneMoreRound={playOneMoreRound}
@@ -72,10 +67,10 @@ useEffect(() => {
         <div className="flex flex-col items-center px-[150px]">
           <p>Points: {playerPoints}</p>
           <GradientText className="text-[35px]">You</GradientText>
-          <RockScissorsHand 
-            player="you" 
-            startNewSession={startNewSession} 
-            playerSelectedIcon={playerSelectedIcon} 
+          <RockScissorsHand
+            player="you"
+            startNewSession={startNewSession}
+            playerSelectedIcon={playerSelectedIcon}
             setPlayerSelectedIcon={setPlayerSelectedIcon}
             changeSelectionBorder = {changeSelectionBorder}
             />

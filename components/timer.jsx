@@ -10,14 +10,23 @@ export default function Timer (props) {
     const [roundNo, setRoundNo] = useState(1)
     const [startNewRound, setStartNewRound] = useState(false)
 
+    // useEffect(() => {
+    //     if (props.startNewGameClicked) {
+    //         setTimeLeft(5)
+    //         setTimeLeftForNextSession(3)
+    //         setRoundNo(1)
+    //         setStartNewRound(false)
+    //         props.startNewGameClicked(false)
+    //     }
+    // }, [props.startNewGameClicked])
+
     // const [playerPointsTemp, setPlayerPointsTemp] = useState(0)
     // const [compPointsTemp, setCompPointsTemp] = useState(0)
-   
     // const [sessionResult, setSessionResult] = useState('')
     /**
      * Description - Converts the 'indexSelected' value passed to the corresponding icon name
      * @param {*} indexSelected 
-     * @returns 
+     * @returns
      */
     const computerSelectionConversion = (indexSelected) => {
         if (indexSelected === 0) {
@@ -114,7 +123,7 @@ export default function Timer (props) {
             if (roundNo <= props.bestOf && startNewRound && props.startNewSession || immediateResults[0] === immediateResults[1]) {
                 const intervalId = setInterval(() => {
                     setTimeLeftForNextSession(prev => {
-                        if ((prev - 1 <= 0)) { /// goes straight from 3->0 when transitioning from round 3 -> round 4 FIXXXXXX
+                        if ((prev - 1 <= 0)) {
                             // setStartNewRound(true)
                             clearInterval(intervalId)
                             return 0
@@ -125,7 +134,7 @@ export default function Timer (props) {
                 // clearInterval(intervalId)
 
                 updateScores(sessionResult)
-                console.log(immediateScoreCalculation(sessionResult))
+                // console.log(immediateScoreCalculation(sessionResult))
                 if (roundNo === 3 && immediateResults[0] !== immediateResults[1]) {
                     if (immediateResults[0] > immediateResults[1]) {
                             props.setDisplayMsg(sessionResult + " \n" + "YOU WON THE GAME!")
@@ -176,7 +185,7 @@ export default function Timer (props) {
             <p>{timeLeft === 0 ? "Time left for next session: " : "Timer: "}</p>
             <p>{timeLeft === 0 ? timeLeftForNextSession : timeLeft}</p>
          </div>
-        {console.log("round:", roundNo)}
+        {/* {console.log("round:", roundNo)} */}
         </>
     )
 }

@@ -18,52 +18,43 @@ export default function RockScissorsHand (props) {
   const [disableButtons, setDisableButtons] = useState(false)
 
   useEffect(() => {
-    // console.log("comp selected:", props.compSelectedIconIndex)
-    // if (props.compSelectedIconIndex != '')
     if (props.playerSelectedIcon === "rock") {
       setRing({
         scissorsStyle: "gradient-border my-5 h-[80px] w-[80px]",
         paperStyle: "gradient-border my-5 h-[80px] w-[80px]",
         rockStyle: "gradient-border-on-click my-5 h-[80px] w-[80px]"
       });
-      // props.setPlayerSelectedIcon("rock")
     } else if (props.playerSelectedIcon === "scissors") {
       setRing({
         paperStyle: "gradient-border my-5 h-[80px] w-[80px]",
         scissorsStyle: "gradient-border-on-click my-5 h-[80px] w-[80px]",
         rockStyle: "gradient-border my-5 h-[80px] w-[80px]"}); 
-        // props.setPlayerSelectedIcon("scissors")
     } else if (props.playerSelectedIcon === "paper") {
       setRing({
         rockStyle: "gradient-border my-5 h-[80px] w-[80px]",
         paperStyle: "gradient-border-on-click my-5 h-[80px] w-[80px]",
         scissorsStyle: "gradient-border my-5 h-[80px] w-[80px]"}); 
-        // props.setPlayerSelectedIcon("paper")
     }
   }, [props.playerSelectedIcon])
 
 
   useEffect(() => {
-    // console.log("props.compSelectedIconIndex", props.compSelectedIconIndex)
     if (props.compSelectedIconIndex === 0) {
       setRing({
         scissorsStyle: "gradient-border my-5 h-[80px] w-[80px]",
         paperStyle: "gradient-border my-5 h-[80px] w-[80px]",
         rockStyle: "gradient-border-on-click my-5 h-[80px] w-[80px]"
       });
-      // props.setPlayerSelectedIcon("rock")
     } else if (props.compSelectedIconIndex === 1) {
       setRing({
         paperStyle: "gradient-border my-5 h-[80px] w-[80px]",
         scissorsStyle: "gradient-border-on-click my-5 h-[80px] w-[80px]",
         rockStyle: "gradient-border my-5 h-[80px] w-[80px]"}); 
-        // props.setPlayerSelectedIcon("scissors")
     } else if (props.compSelectedIconIndex === 2) {
       setRing({
         rockStyle: "gradient-border my-5 h-[80px] w-[80px]",
         paperStyle: "gradient-border-on-click my-5 h-[80px] w-[80px]",
         scissorsStyle: "gradient-border my-5 h-[80px] w-[80px]"}); 
-        // props.setPlayerSelectedIcon("paper")
     }
   }, [props.compSelectedIconIndex])
 
