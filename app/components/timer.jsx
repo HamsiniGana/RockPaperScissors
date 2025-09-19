@@ -10,9 +10,9 @@ export default function Timer (props) {
 
     /**
      * Description - Converts the 'indexSelected' value passed to the corresponding icon name
-     * @param {*} indexSelected
-     * @returns
-     */
+     * @param {int} indexSelected - The index of the computer's selection
+     * @returns {string} - The name of the icon: "rock", "scissors", or "paper"
+    */
     const computerSelectionConversion = (indexSelected) => {
         if (indexSelected === 0) {
             return "rock"
@@ -25,10 +25,10 @@ export default function Timer (props) {
 
     /**
      * Description - Checks whether the icons selected by the player and the computer are a winning match for a session
-     * @param {*} playerSelection 
-     * @param {*} compSelection 
-     * @returns 
-     */
+     * @param {string} playerSelection - The icon chosen by the player
+     * @param {string} compSelection - The icon chosen by the computer
+     * @returns {string} - Result of the round: win, lose, or draw message
+    */
     const scoreCalculation = (playerSelection, compSelection) => {
         console.log("playerSelection:", playerSelection, "compSelection:", compSelection)
         if (playerSelection === '') {
@@ -44,6 +44,12 @@ export default function Timer (props) {
         return "It's a draw!"
     }
 
+    /**
+     * Calculates the immediate updated scores based on the result of the round.
+     * Does not update state directly, just returns the updated values.
+     * @param {string} result - The result message of the round
+     * @returns {number[]} - Array with [playerPoints, compPoints] after this round
+    */
     const immediateScoreCalculation = (result) => {
          if (result === "You won this round!") {
             return [props.playerPoints + 1, props.compPoints]
@@ -54,6 +60,10 @@ export default function Timer (props) {
         }
     }
 
+    /**
+     * Updates the React state scores for player/computer based on the session result.
+     * @param {string} sessionResultPassed - The result message of the current round
+    */
     const updateScores = (sessionResultPassed) => {
         if (sessionResultPassed === "You won this round!") {
             props.setPlayerPoints(prev => prev + 1)
@@ -66,6 +76,8 @@ export default function Timer (props) {
             if (!props.startNewSession) {
                 return;
             }
+
+            // Countdown for the current round
             if (!startNewRound && props.startNewSession) {
                 const intervalId = setInterval(() => {
                     setTimeLeft(prev => {
@@ -80,8 +92,8 @@ export default function Timer (props) {
                 }, 1000)
                 return () => clearInterval(intervalId)
             }
-            const compIndex = 1
-            // const compIndex = Math.floor(Math.random() * 3)
+
+            const compIndex = Math.floor(Math.random() * 3)
             props.setCompSelectedIconIndex(compIndex)
             const sessionResult = scoreCalculation(props.playerSelectedIcon,  computerSelectionConversion(compIndex))
             let immediateResults = immediateScoreCalculation(sessionResult);
@@ -127,7 +139,6 @@ export default function Timer (props) {
                     if ((roundNo <= 2) || (roundNo >= 3 && immediateResults[0] === immediateResults[1])) {
                         setRoundNo(prev => prev + 1);
                         setStartNewRound(false);
-                        // setDisplayMsg('')
                     }
 
                     if (roundNo <= 2 || (immediateResults[0] === immediateResults[1])) {
@@ -167,7 +178,6 @@ export default function Timer (props) {
             <p>{timeLeft === 0 ? "Time left for next session: " : "Timer: "}</p>
             <p>{timeLeft === 0 ? timeLeftForNextSession : timeLeft}</p>
          </div>
-        {/* {console.log("round:", roundNo)} */}
         </>
     )
 }
