@@ -42,7 +42,7 @@ useEffect(() => {
     <div className="flex flex-col items-center">
       <div className='flex flex-row'>
         <GradientText className="text-[50px] mb-[60px]">READY SET GO</GradientText>
-        <Button className='ms-[400px] mt-4' onClick={() => {
+        <Button className='ms-[400px] mt-4 border-solid border-orange-300 border-3 bg-black text-orange-300 h-[50px]' onClick={() => {
           localStorage.setItem("startNewSession", "true");
           window.location.reload();
           }}>START NEW GAME</Button>
