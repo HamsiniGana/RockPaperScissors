@@ -100,16 +100,14 @@ export default function Timer (props) {
                 }, 1000)
                 return () => clearInterval(intervalId)
             }
-            const compIndex = 1
-            // const compIndex = Math.floor(Math.random() * 3)
+            // const compIndex = 1
+            const compIndex = Math.floor(Math.random() * 3)
             props.setCompSelectedIconIndex(compIndex)
             const sessionResult = scoreCalculation(props.playerSelectedIcon,  computerSelectionConversion(compIndex))
             let immediateResults = immediateScoreCalculation(sessionResult);
 
             if (roundNo > 3 && immediateResults[0] !== immediateResults[1]) {
                 updateScores(sessionResult)
-                console.log("Here1")
-                // props.setDisplayMsg(sessionResult)
                 setTimeLeftForNextSession(0)
                 props.setStartNewSession(false)
 
@@ -134,7 +132,7 @@ export default function Timer (props) {
                 // clearInterval(intervalId)
 
                 updateScores(sessionResult)
-                console.log("Here2")
+                // console.log("Here2")
                 // console.log(immediateScoreCalculation(sessionResult))
                 if (roundNo === 3 && immediateResults[0] !== immediateResults[1]) {
                     if (immediateResults[0] > immediateResults[1]) {
@@ -149,6 +147,7 @@ export default function Timer (props) {
                     if ((roundNo <= 2) || (roundNo >= 3 && immediateResults[0] === immediateResults[1])) {
                         setRoundNo(prev => prev + 1);
                         setStartNewRound(false);
+                        // setDisplayMsg('')
                     }
 
                     if (roundNo <= 2 || (immediateResults[0] === immediateResults[1])) {
@@ -162,13 +161,14 @@ export default function Timer (props) {
                     }
 
                     props.setCompSelectedIconIndex(-1);
-                    if (roundNo >= 3) { // change to if player points != comp points
+                    if (roundNo >= 3) {
                         if (immediateResults[0] === immediateResults[1]) {
                             props.setChangeSelectionBorder(true);
 
                         } else {
                             props.setChangeSelectionBorder(false);
                         }
+                        props.setDisplayMsg('');
                     }
                     else {
                         props.setChangeSelectionBorder(true);
@@ -186,7 +186,7 @@ export default function Timer (props) {
             <p>{timeLeft === 0 ? "Time left for next session: " : "Timer: "}</p>
             <p>{timeLeft === 0 ? timeLeftForNextSession : timeLeft}</p>
          </div>
-        {console.log("round:", roundNo)}
+        {/* {console.log("round:", roundNo)} */}
         </>
     )
 }
