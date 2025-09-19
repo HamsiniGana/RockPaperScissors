@@ -25,7 +25,7 @@ export default function Timer (props) {
     // const [sessionResult, setSessionResult] = useState('')
     /**
      * Description - Converts the 'indexSelected' value passed to the corresponding icon name
-     * @param {*} indexSelected 
+     * @param {*} indexSelected
      * @returns
      */
     const computerSelectionConversion = (indexSelected) => {
@@ -46,7 +46,7 @@ export default function Timer (props) {
      */
     const scoreCalculation = (playerSelection, compSelection) => {
         // console.log(Object.keys(props.winningCombinations))
-        // console.log("playerSelection:", playerSelection, "compSelection:", compSelection)
+        console.log("playerSelection:", playerSelection, "compSelection:", compSelection)
         // console.log(props.winningCombinations[playerSelection])
         // console.log(props.winningCombinations[compSelection])
         // console.log(compSelection in Object.keys(props.winningCombinations))
@@ -71,8 +71,6 @@ export default function Timer (props) {
         } else if (result === "It's a draw!") {
             return [props.playerPoints, props.compPoints]
         }
-        // setSessionResult("It's a draw!")
-        // return "It's a draw!"
     }
 
     const updateScores = (sessionResultPassed) => {
@@ -82,6 +80,7 @@ export default function Timer (props) {
             props.setCompPoints(prev => prev + 1)
         }
     }
+
     useEffect(() => {
             if (!props.startNewSession) {
                 return;
@@ -109,6 +108,7 @@ export default function Timer (props) {
 
             if (roundNo > 3 && immediateResults[0] !== immediateResults[1]) {
                 updateScores(sessionResult)
+                console.log("Here1")
                 // props.setDisplayMsg(sessionResult)
                 setTimeLeftForNextSession(0)
                 props.setStartNewSession(false)
@@ -134,20 +134,22 @@ export default function Timer (props) {
                 // clearInterval(intervalId)
 
                 updateScores(sessionResult)
+                console.log("Here2")
                 // console.log(immediateScoreCalculation(sessionResult))
                 if (roundNo === 3 && immediateResults[0] !== immediateResults[1]) {
                     if (immediateResults[0] > immediateResults[1]) {
                             props.setDisplayMsg(sessionResult + " \n" + "YOU WON THE GAME!")
                     } else {
-                            props.setDisplayMsg(sessionResult + " \n" +"COMPUTER WON THE GAME :(")
+                            props.setDisplayMsg(sessionResult + " \n" + "COMPUTER WON THE GAME :(")
                     }
-                    
                 } else {
                     props.setDisplayMsg(sessionResult)
                 }
                 const timeoutId = setTimeout(() => {
-                    setRoundNo(prev => prev + 1);
-                    setStartNewRound(false);
+                    if ((roundNo <= 2) || (roundNo >= 3 && immediateResults[0] === immediateResults[1])) {
+                        setRoundNo(prev => prev + 1);
+                        setStartNewRound(false);
+                    }
 
                     if (roundNo <= 2 || (immediateResults[0] === immediateResults[1])) {
                         setTimeLeft(5);
@@ -156,8 +158,7 @@ export default function Timer (props) {
                     } else {
                         clearTimeout(timeoutId);
                         setTimeLeftForNextSession(0);
-                        
-                        // setTimeLeftForNextSession(0);
+                        setTimeLeft(0);
                     }
 
                     props.setCompSelectedIconIndex(-1);
@@ -177,7 +178,7 @@ export default function Timer (props) {
                 }, 3000)
                 return () => clearTimeout(timeoutId)
             }
-    }, [timeLeft, props.startNewSession, startNewRound]) 
+    }, [timeLeft, props.startNewSession, startNewRound])
 
     return (
         <>
@@ -185,7 +186,7 @@ export default function Timer (props) {
             <p>{timeLeft === 0 ? "Time left for next session: " : "Timer: "}</p>
             <p>{timeLeft === 0 ? timeLeftForNextSession : timeLeft}</p>
          </div>
-        {/* {console.log("round:", roundNo)} */}
+        {console.log("round:", roundNo)}
         </>
     )
 }
