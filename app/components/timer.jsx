@@ -3,8 +3,6 @@
 import { useState, useEffect } from "react";
 
 export default function Timer (props) {
-    // console.log("Render at", new Date().toISOString());
-
     const [timeLeft, setTimeLeft] = useState(5)
     const [timeLeftForNextSession, setTimeLeftForNextSession] = useState(3)
     const [roundNo, setRoundNo] = useState(1)
@@ -32,11 +30,7 @@ export default function Timer (props) {
      * @returns 
      */
     const scoreCalculation = (playerSelection, compSelection) => {
-        // console.log(Object.keys(props.winningCombinations))
         console.log("playerSelection:", playerSelection, "compSelection:", compSelection)
-        // console.log(props.winningCombinations[playerSelection])
-        // console.log(props.winningCombinations[compSelection])
-        // console.log(compSelection in Object.keys(props.winningCombinations))
         if (playerSelection === '') {
             return "You did not pick an option! Computer won this round"
         }
@@ -73,7 +67,6 @@ export default function Timer (props) {
                 return;
             }
             if (!startNewRound && props.startNewSession) {
-                // console.log("before", timeLeft)
                 const intervalId = setInterval(() => {
                     setTimeLeft(prev => {
                         if (prev - 1 <= 0) {
@@ -87,8 +80,8 @@ export default function Timer (props) {
                 }, 1000)
                 return () => clearInterval(intervalId)
             }
-            // const compIndex = 1
-            const compIndex = Math.floor(Math.random() * 3)
+            const compIndex = 1
+            // const compIndex = Math.floor(Math.random() * 3)
             props.setCompSelectedIconIndex(compIndex)
             const sessionResult = scoreCalculation(props.playerSelectedIcon,  computerSelectionConversion(compIndex))
             let immediateResults = immediateScoreCalculation(sessionResult);
@@ -97,6 +90,7 @@ export default function Timer (props) {
                 updateScores(sessionResult)
                 setTimeLeftForNextSession(0)
                 props.setStartNewSession(false)
+                localStorage.setItem("startNewSession", false)
 
                 if (immediateResults[0] > immediateResults[1]) {
                     props.setDisplayMsg(sessionResult + " \n" + "YOU WON THE GAME!")
@@ -109,24 +103,23 @@ export default function Timer (props) {
                 const intervalId = setInterval(() => {
                     setTimeLeftForNextSession(prev => {
                         if ((prev - 1 <= 0)) {
-                            // setStartNewRound(true)
                             clearInterval(intervalId)
                             return 0
                         }
                         return prev - 1
                     })
                 }, 1000)
-                // clearInterval(intervalId)
 
                 updateScores(sessionResult)
-                // console.log("Here2")
-                // console.log(immediateScoreCalculation(sessionResult))
                 if (roundNo === 3 && immediateResults[0] !== immediateResults[1]) {
                     if (immediateResults[0] > immediateResults[1]) {
                             props.setDisplayMsg(sessionResult + " \n" + "YOU WON THE GAME!")
                     } else {
                             props.setDisplayMsg(sessionResult + " \n" + "COMPUTER WON THE GAME :(")
                     }
+                    setTimeLeftForNextSession(0);
+                    props.setStartNewSession(false);
+                    localStorage.setItem("startNewSession", false);
                 } else {
                     props.setDisplayMsg(sessionResult)
                 }
@@ -154,6 +147,8 @@ export default function Timer (props) {
 
                         } else {
                             props.setChangeSelectionBorder(false);
+                            props.setStartNewSession(false)
+                            localStorage.setItem("startNewSession", false)
                         }
                         props.setDisplayMsg('');
                     }
@@ -161,7 +156,6 @@ export default function Timer (props) {
                         props.setChangeSelectionBorder(true);
                         props.setDisplayMsg('');
                     }
-                    // props.setPlayerSelectedIcon('');
                 }, 3000)
                 return () => clearTimeout(timeoutId)
             }
