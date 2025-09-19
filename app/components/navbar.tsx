@@ -52,7 +52,11 @@ export default function Nav() {
         <NavbarItem>
           <Link className="text-orange-300 text-lg mr-5 pr-2" href="/">
           <GradientText>Home</GradientText>
-           
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link className="text-orange-300 text-lg mr-5 pr-2" href="/rulesPage">
+          <GradientText>Rules</GradientText>
           </Link>
         </NavbarItem>
         <NavbarItem>
