@@ -1,7 +1,7 @@
 "use client"
 
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@heroui/react";
-import logo from '../assets/rock.png'
+import logo from '../assets/logo.png'
 import Image from "next/image";
 export const AcmeLogo = () => {
     return (
@@ -15,7 +15,7 @@ export const AcmeLogo = () => {
     </svg>
   );
 };
-
+import GradientText from './gradientText'
 export default function Nav() {
   return (
     <Navbar isBordered className="mb-[50px] -mt-[70px]"
@@ -40,23 +40,24 @@ export default function Nav() {
         <Link href="/" >
            <Image
                 src={logo}
-                width={40}
+                width={35}
                 height={30}
                 alt="Edit icon"
                 className="mr-3"
             />
-            <p className="text-xl text-yellow-200">Rock Paper Scissors</p>
+            <GradientText className="text-[20px]">Rock Paper Scissors</GradientText>
         </Link>
     </NavbarBrand>
     <NavbarContent className="hidden sm:flex -mr-[125px]" justify="center">
         <NavbarItem>
-          <Link className="text-yellow-200 text-lg mr-5 pr-2" href="/">
-            Home
+          <Link className="text-orange-300 text-lg mr-5 pr-2" href="/">
+          <GradientText>Home</GradientText>
+           
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link className="text-yellow-200 text-lg" href="/gamePage">
-            Play
+          <Link className="text-orange-300 text-lg" href="/gamePage">
+            <GradientText>Play</GradientText>
           </Link>
         </NavbarItem>
     </NavbarContent>

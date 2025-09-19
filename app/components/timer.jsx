@@ -10,19 +10,6 @@ export default function Timer (props) {
     const [roundNo, setRoundNo] = useState(1)
     const [startNewRound, setStartNewRound] = useState(false)
 
-    // useEffect(() => {
-    //     if (props.startNewGameClicked) {
-    //         setTimeLeft(5)
-    //         setTimeLeftForNextSession(3)
-    //         setRoundNo(1)
-    //         setStartNewRound(false)
-    //         props.startNewGameClicked(false)
-    //     }
-    // }, [props.startNewGameClicked])
-
-    // const [playerPointsTemp, setPlayerPointsTemp] = useState(0)
-    // const [compPointsTemp, setCompPointsTemp] = useState(0)
-    // const [sessionResult, setSessionResult] = useState('')
     /**
      * Description - Converts the 'indexSelected' value passed to the corresponding icon name
      * @param {*} indexSelected

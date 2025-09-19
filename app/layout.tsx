@@ -7,7 +7,7 @@ import { Providers } from "./providers";
 
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
-import Nav from "@/components/navbar";
+import Nav from './components/navbar';
 
 export const metadata: Metadata = {
   title: {
